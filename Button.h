@@ -12,6 +12,6 @@ public:
 		button.setPosition(x, y);
 	}
 	sf::FloatRect getGlobalBounds() { return button.getGlobalBounds(); }
-
+	bool contains(sf::FloatRect rect);
 	void sf::Drawable::draw(sf::RenderTarget & window, sf::RenderStates states) const { window.draw(button); }
 };

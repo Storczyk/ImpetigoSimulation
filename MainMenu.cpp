@@ -1,8 +1,8 @@
 #include "MainMenu.h"
-
+#include "SFML\Window.hpp"
 MainMenu::MainMenu()
 {
-	window.create(sf::VideoMode(1024, 768), "Symulacja Liszaja", sf::Style::Titlebar);
+	window.create(sf::VideoMode(768, 768), "Symulacja Liszaja", sf::Style::Titlebar);
 	window.setFramerateLimit(60);
 	LoadMedia();
 	ShowMainMenu();
@@ -21,13 +21,13 @@ void MainMenu::LoadMedia()
 	{
 		buttonText[i].setFont(font);
 		buttonText[i].setCharacterSize(30);
-		button[i].setPosition(350.f, y);
+		button[i].setPosition(250.f, y);
 
 		sf::FloatRect textRect, buttonRect;
 		textRect = buttonText[i].getGlobalBounds();
 		buttonRect = button[i].getGlobalBounds();
 		
-		buttonText[i].setPosition(buttonRect.left + buttonRect.width / 2.f - textRect.width / 2.f,
+		buttonText[i].setPosition(buttonRect.left + (buttonRect.width / 2.f) - (textRect.width / 2.f),
 			buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
 		y += 150.f;
 	}
@@ -37,13 +37,21 @@ void MainMenu::ShowMainMenu()
 {
 	while (window.isOpen())
 	{
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			if (event.type == sf::Event::KeyPressed & event.key.code == sf::Keyboard::Escape)
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 				window.close();
+			if (event.type == sf::Event::MouseButtonReleased && event.MouseLeft)
+			{
+				for (int i = 0; i < 5; i++)
+				{
+					if(button[i].contains)
+				}
+			}
 		} 
 		window.clear();
 		for (int i = 0; i < 5; i++)
