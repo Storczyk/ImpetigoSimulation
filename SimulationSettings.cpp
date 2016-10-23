@@ -1,8 +1,7 @@
 #include "SimulationSettings.h"
 #include "SFML\Graphics.hpp"
-SimulationSettings::SimulationSettings(sf::Font font)
+SimulationSettings::SimulationSettings()
 {
-	this->font = font;
 	LoadMedia();
 }
 
@@ -24,9 +23,11 @@ void SimulationSettings::SimulationSettingsMenu()
 {
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(1024, 768), "Ustawienia Symulacji", sf::Style::Titlebar);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(10);
+
 	while (window.isOpen())
 	{
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -34,10 +35,16 @@ void SimulationSettings::SimulationSettingsMenu()
 				window.close();
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 				window.close();
+			if (event.type == sf::Event::MouseButtonReleased && event.MouseLeft)
+			{
+				if (button[7].contains(mousePos))
+					window.close();
+			}
 		}
 		window.clear();
 		for (int i = 0; i < 8; i++)
 		{
+			window.draw(button[i]);
 			window.draw(buttonText[i]);
 		}
 
@@ -48,6 +55,7 @@ void SimulationSettings::SimulationSettingsMenu()
 
 void SimulationSettings::LoadMedia()
 {
+	font.loadFromFile("font/font.ttf");
 	buttonText[0].setString(L"Rozmiar tablicy:");
 	buttonText[1].setString(L"Szansa na uodpornienie komorki:");
 	buttonText[2].setString(L"Szansa na uzdrowienie komorki:");
@@ -59,11 +67,15 @@ void SimulationSettings::LoadMedia()
 	float y = 50.f;
 	for (int i = 0; i < 8; i++)
 	{
-		float y = 50.f;
 		buttonText[i].setFont(font);
 		buttonText[i].setCharacterSize(30);
-		buttonText[i].setPosition(250.f, y);
-		y += 100.f;
+		button[i].setPosition(250.f, y);
+		sf::FloatRect textRect, buttonRect;
+		textRect = buttonText[i].getGlobalBounds();
+		buttonRect = button[i].getGlobalBounds();
+		buttonText[i].setPosition(buttonRect.left + (buttonRect.width / 2.f) - (textRect.width / 2.f),
+			buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
+		y = y + 70.f;
 	}
 }
 

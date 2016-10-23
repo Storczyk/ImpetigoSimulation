@@ -9,12 +9,13 @@ class SimulationSettings
 	int ImmuneTime;		 //czas uodpornienia - czas potrzebny na przejscie z zainfekowanej na odporna
 	int ResistanceTime;  //czas odpornosci - czas potrzebny na przejscie z odpornej na zdrowa
 	int ArraySize;
+
+	Button button[8];
 	sf::Text buttonText[8];
 	sf::Font font;
 	
 public:
-	SimulationSettings() {};
-	SimulationSettings(sf::Font);
+	SimulationSettings();
 	~SimulationSettings(){}
 	int GetSetting(int nr);
 	void SimulationSettingsMenu();

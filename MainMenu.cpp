@@ -26,7 +26,7 @@ void MainMenu::LoadMedia()
 		sf::FloatRect textRect, buttonRect;
 		textRect = buttonText[i].getGlobalBounds();
 		buttonRect = button[i].getGlobalBounds();
-		
+
 		buttonText[i].setPosition(buttonRect.left + (buttonRect.width / 2.f) - (textRect.width / 2.f),
 			buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
 		y += 150.f;
@@ -47,12 +47,16 @@ void MainMenu::ShowMainMenu()
 				window.close();
 			if (event.type == sf::Event::MouseButtonReleased && event.MouseLeft)
 			{
-				for (int i = 0; i < 5; i++)
-				{
-					if(button[i].contains)
+				if (button[0].contains(mousePos));
+				else if (button[2].contains(mousePos))
+				{ 
+					window.setVisible(false);
+					this->simulationSettings.SimulationSettingsMenu();
+					window.setVisible(true);
 				}
+				else if (button[4].contains(mousePos)) window.close();
 			}
-		} 
+		}
 		window.clear();
 		for (int i = 0; i < 5; i++)
 		{
