@@ -10,7 +10,7 @@ MainMenu::MainMenu()
 
 void MainMenu::LoadMedia()
 {
-	font.loadFromFile("font/font.ttf");
+	font.loadFromFile("font/Sansita-Italic.ttf");
 	buttonText[0].setString(L"Start symulacji");
 	buttonText[1].setString(L"Ustawienia Symulacji");
 	buttonText[2].setString(L"Ustawienia Graficzne");

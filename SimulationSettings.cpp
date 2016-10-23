@@ -63,9 +63,7 @@ void SimulationSettings::SimulationSettingsMenu()
 				buttonValue[i].setString(std::to_string(this->GetSetting(i + 1)));
 				window.draw(buttonValue[i]);
 			}
-				
 		}
-
 		window.display();
 	}
 
@@ -73,19 +71,13 @@ void SimulationSettings::SimulationSettingsMenu()
 
 void SimulationSettings::LoadMedia()
 {
-	font.loadFromFile("font/font.ttf");
+	font.loadFromFile("font/Sansita-Italic.ttf");
 	buttonText[0].setString(L"Rozmiar tablicy:");
-
 	buttonText[1].setString(L"Szansa na uodpornienie komorki [%]:");
-
 	buttonText[2].setString(L"Szansa na uzdrowienie komorki [%]:");
-
 	buttonText[3].setString(L"Szansa na zainfekowanie komorki [%]:");
-
 	buttonText[4].setString(L"Dlugosc stanu zarazenia [s]:");
-
 	buttonText[5].setString(L"Dlugosc stanu odpornosci [s]:");
-
 	buttonText[6].setString(L"Dlugosc trwania jednego cyklu [ms]:");
 	buttonText[7].setString(L"Powrot");
 	float y = 50.f;
@@ -104,10 +96,10 @@ void SimulationSettings::LoadMedia()
 			buttonValue[i].setFont(font);
 			buttonValue[i].setFillColor(sf::Color::Blue);
 			buttonValue[i].setCharacterSize(30);
-			buttonValue[i].setPosition(buttonRect.left + 450,
+			buttonValue[i].setPosition(buttonRect.left + 550,
 				buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
 		}
-		y += 80.f;
+		y += 90.f;
 	}
 }
 
