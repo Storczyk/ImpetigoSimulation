@@ -12,6 +12,7 @@ class SimulationSettings
 
 	Button button[8];
 	sf::Text buttonText[8];
+	sf::Text buttonValue[7];
 	sf::Font font;
 	
 public:
