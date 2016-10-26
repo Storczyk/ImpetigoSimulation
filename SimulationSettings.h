@@ -11,6 +11,7 @@ class SimulationSettings
 	int ArraySize;
 
 	Button button[8];
+	sf::Text TextRange[8];
 	sf::Text buttonValue[7];
 	sf::Font font;
 	sf::Texture bgTexture;

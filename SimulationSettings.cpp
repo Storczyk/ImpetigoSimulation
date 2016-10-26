@@ -138,6 +138,7 @@ void SimulationSettings::SimulationSettingsMenu()
 			{
 				buttonValue[i].setString(std::to_string(this->GetSetting(i + 1)));
 				window.draw(buttonValue[i]);
+				window.draw(TextRange[i]);
 			}
 		}
 		window.display();
@@ -151,22 +152,36 @@ void SimulationSettings::LoadMedia()
 	background.setTexture(bgTexture);
 	font.loadFromFile("font/Sansita-Italic.ttf");
 	sf::String str[8] = { L"Rozmiar tablicy:", L"Szansa na uodpornienie komorki [%]:",L"Szansa na uzdrowienie komorki [%]:",L"Szansa na zainfekowanie komorki [%]:",L"Dlugosc stanu zarazenia [s]:", L"Dlugosc stanu odpornosci [s]:" ,L"Dlugosc trwania jednego cyklu [ms]:",L"Powrot" };
+	TextRange[0].setString(L"[100-2000]");
+	TextRange[1].setString(L"[0-100]");
+	TextRange[2].setString(L"[0-100]");
+	TextRange[3].setString(L"[0-100]");
+	TextRange[4].setString(L"[0-100]");
+	TextRange[5].setString(L"[0-100]");
+	TextRange[6].setString(L"[0-100]");
+	TextRange[7].setString(L"[100-2000]");
 	float y = 50.f;
 	for (int i = 0; i < 8; i++)
 	{
-		
 		button[i].LoadButtonSettings();
 		button[i].setPosition(150.f, y);
-		button[i].LoadMenu(str[i], sf::Color::Blue);
+		button[i].LoadMenu(str[i], sf::Color::Blue, -100.f);
 		if (i < 7)
 		{
 			buttonValue[i].setFont(font);
+			TextRange[i].setFont(font);
 			buttonValue[i].setFillColor(sf::Color::Blue);
+			TextRange[i].setFillColor(sf::Color::Black);
 			buttonValue[i].setCharacterSize(30);
+			TextRange[i].setCharacterSize(20);
 			sf::FloatRect buttonRect = button[i].getGlobalBounds();
-			buttonValue[i].setPosition(buttonRect.left + 600,
+			buttonValue[i].setPosition(buttonRect.left + 500,
 				buttonRect.top + buttonRect.height / 2.f - 20);
+			TextRange[i].setPosition(buttonRect.left + 580,
+				buttonRect.top + buttonRect.height / 2.f -12 );
 		}
+		else if(i==7)
+			button[i].LoadMenu(str[i], sf::Color::Blue);
 		y += 90.f;
 	}
 }

@@ -19,7 +19,7 @@ void Button::LoadButtonSettings()
 	button.setTexture(ButtonTextureNormal);
 }
 
-void Button::LoadMenu(sf::String buttonTexts, sf::Color color, float swap)
+void Button::LoadMenu(sf::String buttonTexts, sf::Color color, float swap )
 {
 	sf::FloatRect textRect, buttonRect;
 	buttonText.setCharacterSize(30);
