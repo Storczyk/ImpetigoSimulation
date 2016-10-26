@@ -134,7 +134,6 @@ void SimulationSettings::SimulationSettingsMenu()
 		for (int i = 0; i < 8; i++)
 		{
 			window.draw(button[i]);
-			window.draw(buttonText[i]);
 			if (i < 7)
 			{
 				buttonValue[i].setString(std::to_string(this->GetSetting(i + 1)));
@@ -151,35 +150,22 @@ void SimulationSettings::LoadMedia()
 	bgTexture.loadFromFile("imgs/settings_bg.png");
 	background.setTexture(bgTexture);
 	font.loadFromFile("font/Sansita-Italic.ttf");
-	buttonText[0].setString(L"Rozmiar tablicy:");
-	buttonText[1].setString(L"Szansa na uodpornienie komorki [%]:");
-	buttonText[2].setString(L"Szansa na uzdrowienie komorki [%]:");
-	buttonText[3].setString(L"Szansa na zainfekowanie komorki [%]:");
-	buttonText[4].setString(L"Dlugosc stanu zarazenia [s]:");
-	buttonText[5].setString(L"Dlugosc stanu odpornosci [s]:");
-	buttonText[6].setString(L"Dlugosc trwania jednego cyklu [ms]:");
-	buttonText[7].setString(L"Powrot");
+	sf::String str[8] = { L"Rozmiar tablicy:", L"Szansa na uodpornienie komorki [%]:",L"Szansa na uzdrowienie komorki [%]:",L"Szansa na zainfekowanie komorki [%]:",L"Dlugosc stanu zarazenia [s]:", L"Dlugosc stanu odpornosci [s]:" ,L"Dlugosc trwania jednego cyklu [ms]:",L"Powrot" };
 	float y = 50.f;
 	for (int i = 0; i < 8; i++)
 	{
-		buttonText[i].setFillColor(sf::Color::Blue);
-		button[i].LoadButtonSettings();
-		buttonText[i].setFont(font);
-		buttonText[i].setCharacterSize(30);
 		
+		button[i].LoadButtonSettings();
 		button[i].setPosition(150.f, y);
-		sf::FloatRect textRect, buttonRect;
-		textRect = buttonText[i].getGlobalBounds();
-		buttonRect = button[i].getGlobalBounds();
-		buttonText[i].setPosition(buttonRect.left + (buttonRect.width / 2.f) - (textRect.width / 2.f),
-			buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
+		button[i].LoadMenu(str[i], sf::Color::Blue);
 		if (i < 7)
 		{
 			buttonValue[i].setFont(font);
 			buttonValue[i].setFillColor(sf::Color::Blue);
 			buttonValue[i].setCharacterSize(30);
+			sf::FloatRect buttonRect = button[i].getGlobalBounds();
 			buttonValue[i].setPosition(buttonRect.left + 600,
-				buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
+				buttonRect.top + buttonRect.height / 2.f - 20);
 		}
 		y += 90.f;
 	}

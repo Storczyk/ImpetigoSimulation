@@ -12,26 +12,14 @@ void MainMenu::LoadMedia()
 {
 	bgTexture.loadFromFile("imgs/mainmenu_bg.png");
 	background.setTexture(bgTexture);
-	font.loadFromFile("font/Sansita-Italic.ttf");
-	buttonText[0].setString(L"Start symulacji");
-	buttonText[1].setString(L"Ustawienia Symulacji");
-	buttonText[2].setString(L"Ustawienia Graficzne");
-	buttonText[3].setString(L"Muzyka ON");
-	buttonText[4].setString(L"Wyjscie");
+	
+	sf::String str[5] = { L"Start symulacji",L"Ustawienia Symulacji", L"Ustawienia graficzne", L"Muzyka ON", L"Wyjscie" };
 	float y = 50.f;
 	for (int i = 0; i < 5; i++)
-	{
+	{	
 		button[i].LoadButtonNormal();
-		buttonText[i].setFont(font);
-		buttonText[i].setCharacterSize(30);
 		button[i].setPosition(250.f, y);
-
-		sf::FloatRect textRect, buttonRect;
-		textRect = buttonText[i].getGlobalBounds();
-		buttonRect = button[i].getGlobalBounds();
-
-		buttonText[i].setPosition(buttonRect.left + (buttonRect.width / 2.f) - (textRect.width / 2.f),
-			buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
+		button[i].LoadMenu(str[i]);
 		y += 150.f;
 	}
 }
@@ -78,7 +66,8 @@ void MainMenu::ShowMainMenu()
 		for (int i = 0; i < 5; i++)
 		{
 			window.draw(button[i]);
-			window.draw(buttonText[i]);
+
+			//window.draw(buttonText[i]);
 		}
 
 		window.display();

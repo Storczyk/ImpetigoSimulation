@@ -16,9 +16,11 @@ public:
 	}
 	sf::FloatRect getGlobalBounds() { return button.getGlobalBounds(); }
 	void LoadButtonSettings();
-	void LoadMenu(sf::Text * texts);
+	void LoadMenu(sf::String buttonText, sf::Color color = sf::Color::White, float swap = 0.f);
 	void MouseHover(sf::Vector2i mousePos, sf::FloatRect rect);
 	void LoadButtonNormal();
 	bool contains(sf::Vector2i rect);
-	void sf::Drawable::draw(sf::RenderTarget & window, sf::RenderStates states) const { window.draw(button); }
+	void sf::Drawable::draw(sf::RenderTarget & window, sf::RenderStates states) const { window.draw(button);
+	window.draw(buttonText);
+	}
 };

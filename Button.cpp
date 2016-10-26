@@ -3,6 +3,7 @@
 Button::Button() 
 {
 	isHover = false;
+	font.loadFromFile("font/Sansita-Italic.ttf");
 }
 
 void Button::LoadButtonNormal()
@@ -18,10 +19,19 @@ void Button::LoadButtonSettings()
 	button.setTexture(ButtonTextureNormal);
 }
 
-void Button::LoadMenu(sf::Text* texts)
+void Button::LoadMenu(sf::String buttonTexts, sf::Color color, float swap)
 {
-
+	sf::FloatRect textRect, buttonRect;
+	buttonText.setCharacterSize(30);
+	buttonText.setFont(font);
+	buttonText.setString(buttonTexts);
+	buttonText.setFillColor(color);
+	textRect = buttonText.getGlobalBounds();
+	buttonRect = button.getGlobalBounds();
+	buttonText.setPosition(buttonRect.left + (buttonRect.width / 2.f) - (textRect.width / 2.f) + swap,
+		buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
 }
+
 
 void Button::MouseHover(sf::Vector2i mousePos, sf::FloatRect rect)
 {
