@@ -2,13 +2,39 @@
 
 Button::Button() 
 {
-	LoadButton();
+	isHover = false;
 }
 
-void Button::LoadButton()
+void Button::LoadButtonNormal()
 {
-	ButtonTexture.loadFromFile("imgs/normal_button.png");
-	button.setTexture(ButtonTexture);
+	ButtonTextureNormal.loadFromFile("imgs/normal_button.png");
+	ButtonTextureHover.loadFromFile("imgs/hover_button.png");
+	button.setTexture(ButtonTextureNormal);
+}
+
+void Button::LoadButtonSettings()
+{
+	ButtonTextureNormal.loadFromFile("imgs/settings_button.png");
+	button.setTexture(ButtonTextureNormal);
+}
+
+void Button::LoadMenu(sf::Text* texts)
+{
+
+}
+
+void Button::MouseHover(sf::Vector2i mousePos, sf::FloatRect rect)
+{
+	if (!rect.contains((float)mousePos.x, (float)mousePos.y) && isHover)
+	{
+		isHover = false;
+		button.setTexture(ButtonTextureNormal);		
+	}
+	if (rect.contains((float)mousePos.x, (float)mousePos.y) && !isHover)
+	{
+		isHover = true;
+		button.setTexture(ButtonTextureHover);
+	}
 }
 
 bool Button::contains(sf::Vector2i mousePosition)

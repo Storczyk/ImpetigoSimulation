@@ -8,9 +8,11 @@ class MainMenu
 {
 	sf::RenderWindow window;
 	sf::Font font;
-	sf::Texture background;
 	Button button[5];
 	sf::Text buttonText[5];
+	sf::Texture bgTexture;
+	sf::Sprite background;
+
 
 	Simulation simulation;
 	SimulationSettings simulationSettings;

@@ -14,7 +14,8 @@ class SimulationSettings
 	sf::Text buttonText[8];
 	sf::Text buttonValue[7];
 	sf::Font font;
-	
+	sf::Texture bgTexture;
+	sf::Sprite background;
 public:
 	SimulationSettings();
 	~SimulationSettings(){}

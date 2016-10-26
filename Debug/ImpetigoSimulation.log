@@ -1,4 +1,3 @@
-﻿  SimulationSettings.cpp
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulationsettings.cpp(27): warning C4715: 'SimulationSettings::GetSetting': not all control paths return a value
+﻿  Button.cpp
   ImpetigoSimulation.vcxproj -> D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.exe
   ImpetigoSimulation.vcxproj -> D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.pdb (Partial PDB)

@@ -130,6 +130,7 @@ void SimulationSettings::SimulationSettingsMenu()
 			}
 		}
 		window.clear();
+		window.draw(background);
 		for (int i = 0; i < 8; i++)
 		{
 			window.draw(button[i]);
@@ -147,6 +148,8 @@ void SimulationSettings::SimulationSettingsMenu()
 
 void SimulationSettings::LoadMedia()
 {
+	bgTexture.loadFromFile("imgs/settings_bg.png");
+	background.setTexture(bgTexture);
 	font.loadFromFile("font/Sansita-Italic.ttf");
 	buttonText[0].setString(L"Rozmiar tablicy:");
 	buttonText[1].setString(L"Szansa na uodpornienie komorki [%]:");
@@ -159,8 +162,11 @@ void SimulationSettings::LoadMedia()
 	float y = 50.f;
 	for (int i = 0; i < 8; i++)
 	{
+		buttonText[i].setFillColor(sf::Color::Blue);
+		button[i].LoadButtonSettings();
 		buttonText[i].setFont(font);
 		buttonText[i].setCharacterSize(30);
+		
 		button[i].setPosition(150.f, y);
 		sf::FloatRect textRect, buttonRect;
 		textRect = buttonText[i].getGlobalBounds();
@@ -172,7 +178,7 @@ void SimulationSettings::LoadMedia()
 			buttonValue[i].setFont(font);
 			buttonValue[i].setFillColor(sf::Color::Blue);
 			buttonValue[i].setCharacterSize(30);
-			buttonValue[i].setPosition(buttonRect.left + 550,
+			buttonValue[i].setPosition(buttonRect.left + 600,
 				buttonRect.top + buttonRect.height / 2.f - textRect.height / 1.5f);
 		}
 		y += 90.f;

@@ -10,6 +10,8 @@ MainMenu::MainMenu()
 
 void MainMenu::LoadMedia()
 {
+	bgTexture.loadFromFile("imgs/mainmenu_bg.png");
+	background.setTexture(bgTexture);
 	font.loadFromFile("font/Sansita-Italic.ttf");
 	buttonText[0].setString(L"Start symulacji");
 	buttonText[1].setString(L"Ustawienia Symulacji");
@@ -19,6 +21,7 @@ void MainMenu::LoadMedia()
 	float y = 50.f;
 	for (int i = 0; i < 5; i++)
 	{
+		button[i].LoadButtonNormal();
 		buttonText[i].setFont(font);
 		buttonText[i].setCharacterSize(30);
 		button[i].setPosition(250.f, y);
@@ -38,6 +41,11 @@ void MainMenu::ShowMainMenu()
 	while (window.isOpen())
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		
+		for (int i = 0; i < 5; i++)
+		{
+			button[i].MouseHover(mousePos, button[i].getGlobalBounds());
+		}
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -45,6 +53,7 @@ void MainMenu::ShowMainMenu()
 				window.close();
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 				window.close();
+			
 			if (event.type == sf::Event::MouseButtonReleased)
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
@@ -65,6 +74,7 @@ void MainMenu::ShowMainMenu()
 			}
 		}
 		window.clear();
+		window.draw(background);
 		for (int i = 0; i < 5; i++)
 		{
 			window.draw(button[i]);
