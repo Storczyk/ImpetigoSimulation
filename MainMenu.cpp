@@ -45,16 +45,23 @@ void MainMenu::ShowMainMenu()
 				window.close();
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 				window.close();
-			if (event.type == sf::Event::MouseButtonReleased && event.MouseLeft)
+			if (event.type == sf::Event::MouseButtonReleased)
 			{
-				if (button[0].contains(mousePos));
-				else if (button[2].contains(mousePos))
-				{ 
-					window.setVisible(false);
-					this->simulationSettings.SimulationSettingsMenu();
-					window.setVisible(true);
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					if (button[0].contains(mousePos))
+					{
+
+					}
+					else if (button[1].contains(mousePos))
+					{
+						window.setVisible(false);
+						this->simulationSettings.SimulationSettingsMenu();
+						window.setVisible(true);
+					}
+					else if (button[4].contains(mousePos)) window.close();
 				}
-				else if (button[4].contains(mousePos)) window.close();
+				
 			}
 		}
 		window.clear();
