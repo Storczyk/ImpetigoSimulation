@@ -3,7 +3,7 @@
 SimulationSettings::SimulationSettings()
 {
 	LoadMedia();
-	ArraySize = 100;
+	ArraySize = 80;
 	ImmuneChance = 50;
 	HealChance = 100;
 	InfectionChance = 50;
@@ -16,7 +16,7 @@ int SimulationSettings::GetSetting(int nr)
 {
 	switch (nr)
 	{
-	case 1: return this->ArraySize;
+	case 1: return this->ArraySize; //zablokowane
 	case 2: return this->ImmuneChance;
 	case 3: return this->HealChance;
 	case 4: return this->InfectionChance;
@@ -47,7 +47,7 @@ void SimulationSettings::SimulationSettingsMenu()
 				{
 					if (button[7].contains(mousePos))
 						window.close();
-					for (int i = 0; i < 7; i++)
+					for (int i = 1; i < 7; i++)
 					{
 						sf::FloatRect bValPos = buttonValue[i].getGlobalBounds();
 						if (this->contains(mousePos, bValPos))
@@ -55,8 +55,8 @@ void SimulationSettings::SimulationSettingsMenu()
 							switch (i)
 							{
 							case 0:
-								if (this->ArraySize <= 1900) //rozmiar tablicy
-									this->ArraySize += 100;
+								if (this->ArraySize <= 100) //rozmiar tablicy
+									this->ArraySize += 1;
 								break;
 							case 1:
 								if (this->ImmuneChance <= 95) //szansa na uodpornienie
@@ -88,7 +88,7 @@ void SimulationSettings::SimulationSettingsMenu()
 				}
 				if (event.mouseButton.button == sf::Mouse::Button::Right) //zmniejszanie
 				{
-					for (int i = 0; i < 7; i++)
+					for (int i = 1; i < 7; i++)
 					{
 						sf::FloatRect bValPos = buttonValue[i].getGlobalBounds();
 						if (this->contains(mousePos, bValPos))
@@ -96,8 +96,8 @@ void SimulationSettings::SimulationSettingsMenu()
 							switch (i)
 							{
 							case 0:
-								if (this->ArraySize > 200) //rozmiar tablicy
-									this->ArraySize -= 100;
+								if (this->ArraySize > 5) //rozmiar tablicy
+									this->ArraySize -= 1;
 								break;
 							case 1:
 								if (this->ImmuneChance >= 5) //szansa na uodpornienie
@@ -131,7 +131,7 @@ void SimulationSettings::SimulationSettingsMenu()
 		}
 		window.clear();
 		window.draw(background);
-		for (int i = 0; i < 8; i++)
+		for (int i = 1; i < 8; i++)
 		{
 			window.draw(button[i]);
 			if (i < 7)
@@ -160,7 +160,7 @@ void SimulationSettings::LoadMedia()
 	TextRange[5].setString(L"[0-100]");
 	TextRange[6].setString(L"[100-2000]");
 	float y = 50.f;
-	for (int i = 0; i < 8; i++)
+	for (int i = 1; i < 8; i++)
 	{
 		button[i].LoadButtonSettings();
 		button[i].setPosition(150.f, y);

@@ -50,7 +50,11 @@ void MainMenu::ShowMainMenu()
 				{
 					if (button[0].contains(mousePos))
 					{
-
+						window.setVisible(false);
+						window.setActive(false);
+						simulation.SimulationMain(simulationSettings);
+						window.setVisible(true);
+						window.setActive(true);
 					}
 					else if (button[1].contains(mousePos))
 					{

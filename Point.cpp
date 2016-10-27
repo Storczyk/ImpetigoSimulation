@@ -2,9 +2,9 @@
 
 Point::Point()
 {
-	t1.loadFromFile("imgs/p_healthy");
-	t2.loadFromFile("imgs/p_infected");
-	t3.loadFromFile("imgs/p_immune");
+	t1.loadFromFile("imgs/p_healthy.png");
+	t2.loadFromFile("imgs/p_infected.png");
+	t3.loadFromFile("imgs/p_immune.png");
 	state = 1;
 	stateSprite.setTexture(t1);
 	//1-zdrowa
