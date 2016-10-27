@@ -26,7 +26,7 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 	int dlugoscCyklu = this->settings->GetSetting(7);
 	while (window.isOpen())
 	{
-		
+
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
 		for (int i = 0; i < 4; i++)
@@ -40,13 +40,13 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 				CleanUp();
 				window.close();
 			}
-			
+
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 			{
 				CleanUp();
 				window.close();
 			}
-			
+
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
@@ -58,7 +58,7 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 					}
 					else if (button[2].contains(mousePos))
 						Reset();
-					else if(button[3].contains(mousePos))
+					else if (button[3].contains(mousePos))
 					{
 						CleanUp();
 						window.close();
@@ -71,14 +71,13 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 		if (dlugoscCyklu >= 100 && dlugoscCyklu <= 2000)
 		{
 			sf::Time t = (zegar.getElapsedTime());
-			std::cout << t.asSeconds() << std::endl;
 			if (t.asMilliseconds() >= (float)dlugoscCyklu)
 			{
 				zegar.restart();
 				cycle += 1;
 				updateState();
 			}
-				
+
 		}
 
 
@@ -130,7 +129,7 @@ bool Simulation::InfectWhenClicked(sf::Vector2i mPos)
 		return true;
 	}
 	return false;
-		
+
 }
 
 void Simulation::LoadMedia()
@@ -193,6 +192,27 @@ void Simulation::drawing()
 
 void Simulation::updateState()
 {
+	srand(time(NULL));
+	int n = this->settings->GetSetting(1);
+	int SzUodpornienie = this->settings->GetSetting(2);
+	int SzUzdrowienie = this->settings->GetSetting(3);
+	int SzZainfekowanie = this->settings->GetSetting(4);
+	int czasUodpornienia = this->settings->GetSetting(5);
+	int czasOdpornosci = this->settings->GetSetting(6);
+
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < n; j++)
+		{
+			switch (TabArray[i][j].retur(1))
+			{
+			case 1:
+				break;
+			case 2:
+
+			}
+		}
+	}
 }
 
 void Simulation::MakeArray()
