@@ -4,6 +4,7 @@
 #include "Simulation.h"
 #include "SimulationSettings.h"
 #include "GraphicSettings.h"
+#include <SFML\Audio.hpp>
 class MainMenu
 {
 	sf::RenderWindow window;
@@ -12,8 +13,9 @@ class MainMenu
 	sf::Text buttonText[5];
 	sf::Texture bgTexture;
 	sf::Sprite background;
+	sf::Music music;
 
-
+	bool isMusicOn;
 	Simulation simulation;
 	SimulationSettings simulationSettings;
 	GraphicSettings graphicSettings;
@@ -24,5 +26,5 @@ public:
 	~MainMenu() {};
 	void ShowMainMenu();
 	void LoadMedia();
-
+	void musicStart();
 };

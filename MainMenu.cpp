@@ -4,8 +4,10 @@ MainMenu::MainMenu()
 {
 	window.create(sf::VideoMode(768, 768), "Symulacja Liszaja", sf::Style::Titlebar);
 	window.setFramerateLimit(60);
+	isMusicOn = false;
 	LoadMedia();
 	ShowMainMenu();
+	musicStart();
 }
 
 void MainMenu::LoadMedia()
@@ -13,7 +15,7 @@ void MainMenu::LoadMedia()
 	bgTexture.loadFromFile("imgs/mainmenu_bg.png");
 	background.setTexture(bgTexture);
 	
-	sf::String str[5] = { L"Start symulacji",L"Ustawienia Symulacji", L"Ustawienia graficzne", L"Muzyka ON", L"Wyjscie" };
+	sf::String str[5] = { L"Start symulacji",L"Ustawienia Symulacji", L"Ustawienia graficzne", L"Muzyka OFF", L"Wyjscie" };
 	float y = 50.f;
 	for (int i = 0; i < 5; i++)
 	{	
@@ -56,6 +58,7 @@ void MainMenu::ShowMainMenu()
 						this->simulationSettings.SimulationSettingsMenu();
 						window.setVisible(true);
 					}
+					else if (button[3].contains(mousePos)) this->musicStart();
 					else if (button[4].contains(mousePos)) window.close();
 				}
 				
@@ -66,10 +69,29 @@ void MainMenu::ShowMainMenu()
 		for (int i = 0; i < 5; i++)
 		{
 			window.draw(button[i]);
-
-			//window.draw(buttonText[i]);
 		}
 
 		window.display();
 	}
+}
+
+void MainMenu::musicStart()
+{
+	if (isMusicOn)
+	{
+		button[3].LoadMenu(L"Music OFF");
+		isMusicOn = false;
+		music.stop();
+	}
+	else
+	{
+		button[3].LoadMenu(L"Music ON");
+		music.setLoop(true);
+		isMusicOn = true;
+		music.openFromFile("sounds/bg1.ogg");
+		music.play();
+	}
+	
+	
+
 }

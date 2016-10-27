@@ -158,8 +158,7 @@ void SimulationSettings::LoadMedia()
 	TextRange[3].setString(L"[0-100]");
 	TextRange[4].setString(L"[0-100]");
 	TextRange[5].setString(L"[0-100]");
-	TextRange[6].setString(L"[0-100]");
-	TextRange[7].setString(L"[100-2000]");
+	TextRange[6].setString(L"[100-2000]");
 	float y = 50.f;
 	for (int i = 0; i < 8; i++)
 	{

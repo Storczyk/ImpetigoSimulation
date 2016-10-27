@@ -123,6 +123,7 @@
     <ClCompile Include="GraphicSettings.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimulationSettings.cpp" />
   </ItemGroup>
@@ -130,6 +131,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="GraphicSettings.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationSettings.h" />
   </ItemGroup>
