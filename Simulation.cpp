@@ -12,27 +12,27 @@ Simulation::Simulation()
 void Simulation::SimulationMain(SimulationSettings & settings)
 {
 
-	int draw = 1;
 	window.create(sf::VideoMode(1280, 850), "Symulacja Liszaja", sf::Style::Titlebar);
 	window.setFramerateLimit(30);
 
-	sf::Clock zegar;
-	zegar.restart();
+
 	LoadMedia();
 	this->settings = &settings;
 	this->arraySize = this->settings->GetSetting(1);
 	MakeArray();
 	StateFirst();
 	int dlugoscCyklu = this->settings->GetSetting(7);
+	char SimulationState = 'P';
+	sf::Clock zegar;
+	zegar.restart();
 	while (window.isOpen())
 	{
 
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
 		for (int i = 0; i < 4; i++)
-		{
 			button[i].MouseHover(mousePos, button[i].getGlobalBounds());
-		}
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -54,7 +54,11 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 					if (InfectWhenClicked(mousePos)) {}
 					else if (button[0].contains(mousePos))
 					{
-
+						SimulationState = 'S';
+					}
+					else if (button[1].contains(mousePos))
+					{
+						SimulationState = 'P';
 					}
 					else if (button[2].contains(mousePos))
 						Reset();
@@ -68,17 +72,27 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 		}
 		if (!window.isOpen())
 			break;
-		if (dlugoscCyklu >= 100 && dlugoscCyklu <= 2000)
+		if (SimulationState == 'S')
 		{
-			sf::Time t = (zegar.getElapsedTime());
-			if (t.asMilliseconds() >= (float)dlugoscCyklu)
+			if (dlugoscCyklu >= 100 && dlugoscCyklu <= 2000)
 			{
-				zegar.restart();
-				cycle += 1;
-				updateState();
+				sf::Time t = (zegar.getElapsedTime());
+
+				if (t.asMilliseconds() >= (float)dlugoscCyklu)
+				{
+					std::cout << t.asSeconds() << std::endl;
+					zegar.restart();
+					cycle += 1;
+					updateState();
+				}
+
 			}
+		}
+		else if (SimulationState == 'P')
+		{
 
 		}
+
 
 
 		window.clear();
@@ -165,9 +179,9 @@ void Simulation::drawing()
 	int dlugoscStanuOdpornosci = settings->GetSetting(6);
 	int stan, dlStanu;
 	float x = 0.f, y = 10.f;
-	for (int i = 1; i < n; i++)
+	for (int i = 1; i < n - 1; i++)
 	{
-		for (int j = 1; j < n; j++)
+		for (int j = 1; j < n - 1; j++)
 		{
 			stan = TabArray[i][j].retur(1);
 			x += 10.f;
@@ -200,19 +214,93 @@ void Simulation::updateState()
 	int czasUodpornienia = this->settings->GetSetting(5);
 	int czasOdpornosci = this->settings->GetSetting(6);
 
-	for (int i = 1; i < n; i++)
+	for (int i = 1; i < n - 1; i++)
 	{
-		for (int j = 1; j < n; j++)
+		for (int j = 1; j < n - 1; j++)
 		{
 			switch (TabArray[i][j].retur(1))
 			{
 			case 1:
 				break;
-			case 2:
+			case 2://czy komorka nie zostala zmieniona juz w danym cyklu
+				if (TabArray[i][j].retur(3) == 0)
+				{
+					if (TabArray[i][j].retur(2) >= czasUodpornienia && randomNumber() <= SzUodpornienie)
+					{
+						TabArray[i][j].ChangeState(3);
+					}
+					else
+					{
+						TabArray[i][j].StateUp();
+						//zarazenie komorek innych
+						//gorna
+						if (TabArray[i - 1][j].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i - 1][j].blokChange(1);
+							TabArray[i - 1][j].ChangeState(2);
+						}
+						//prawa
+						if (TabArray[i][j + 1].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i][j + 1].blokChange(1);
+							TabArray[i][j + 1].ChangeState(2);
+						}
+						//dolna
+						if (TabArray[i + 1][j].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i + 1][j].blokChange(1);
+							TabArray[i + 1][j].ChangeState(2);
+						}
+						//lewa
+						if (TabArray[i][j - 1].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i][j - 1].blokChange(1);
+							TabArray[i][j - 1].ChangeState(2);
+						}
+						//lewa gorna
+						if (TabArray[i - 1][j - 1].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i - 1][j - 1].blokChange(1);
+							TabArray[i - 1][j - 1].ChangeState(2);
+						}
+						//prawa gorna
+						if (TabArray[i - 1][j + 1].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i - 1][j + 1].blokChange(1);
+							TabArray[i - 1][j + 1].ChangeState(2);
+						}
+						//lewa dolna
+						if (TabArray[i + 1][j - 1].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i + 1][j - 1].blokChange(1);
+							TabArray[i + 1][j - 1].ChangeState(2);
+						}
+						//prawa dolna
+						if (TabArray[i + 1][j + 1].retur(1) == 1 && randomNumber() <= SzZainfekowanie)
+						{
+							TabArray[i + 1][j + 1].blokChange(1);
+							TabArray[i + 1][j + 1].ChangeState(2);
+						}
+					}
+				}
 
+				break;
+			case 3:
+				if (TabArray[i][j].retur(2) >= czasOdpornosci && randomNumber() <= SzUzdrowienie)
+				{
+					TabArray[i][j].ChangeState(1);
+				}
+				else
+				{
+					TabArray[i][j].StateUp();
+				}
+				break;
 			}
 		}
 	}
+	for (int i = 1; i < n - 1; i++)
+		for (int j = 1; j < n - 1; j++)
+			TabArray[i][j].blokChange(0);
 }
 
 void Simulation::MakeArray()

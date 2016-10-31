@@ -19,14 +19,17 @@ void Point::ChangeState(int newState)
 	this->state = newState;
 	if (newState == 1)
 	{
+		stateLength = 1;
 		stateSprite.setTexture(t1);
 	}
 	if (newState == 2)
 	{
+		stateLength = 1;
 		stateSprite.setTexture(t2);
 	}
 	if (newState == 3)
 	{
+		stateLength = 1;
 		stateSprite.setTexture(t3);
 	}
 }
@@ -38,7 +41,6 @@ int Point::retur(int what)
 	case 1: return this->state;
 	case 2: return this->stateLength;
 	case 3: return this->blok;
-
 	}
 }
 
