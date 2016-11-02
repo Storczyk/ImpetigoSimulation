@@ -1,9 +1,9 @@
-﻿  Simulation.cpp
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(138): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(180): warning C4101: 'dlStanu': unreferenced local variable
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(209): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Point.cpp
+﻿  main.cpp
+  Simulation.cpp
+d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(159): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(218): warning C4101: 'dlStanu': unreferenced local variable
+d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(247): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  MainMenu.cpp
   Generating Code...
-d:\vscommunity\symulacjaliszaja\impetigosimulation\point.cpp(45): warning C4715: 'Point::retur': not all control paths return a value
   ImpetigoSimulation.vcxproj -> D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.exe
   ImpetigoSimulation.vcxproj -> D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.pdb (Partial PDB)

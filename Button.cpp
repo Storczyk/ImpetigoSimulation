@@ -10,7 +10,23 @@ void Button::LoadButtonNormal()
 {
 	ButtonTextureNormal.loadFromFile("imgs/normal_button.png");
 	ButtonTextureHover.loadFromFile("imgs/hover_button.png");
+	ButtonTextureClicked.loadFromFile("imgs/clicked_button.png");
 	button.setTexture(ButtonTextureNormal);
+}
+
+void Button::clicked(bool st)
+{
+	if (st == true)
+	{
+		button.setTexture(ButtonTextureClicked);
+		return;
+	}
+	else
+	{
+		button.setTexture(ButtonTextureNormal);
+		return;
+	}
+		
 }
 
 void Button::LoadButtonSettings()

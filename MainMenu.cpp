@@ -5,6 +5,7 @@ MainMenu::MainMenu()
 	window.create(sf::VideoMode(768, 768), "Symulacja Liszaja", sf::Style::Titlebar);
 	window.setFramerateLimit(60);
 	isMusicOn = false;
+	
 	LoadMedia();
 	ShowMainMenu();
 	musicStart();
@@ -14,8 +15,7 @@ void MainMenu::LoadMedia()
 {
 	bgTexture.loadFromFile("imgs/mainmenu_bg.png");
 	background.setTexture(bgTexture);
-	
-	sf::String str[5] = { L"Start symulacji",L"Ustawienia Symulacji", L"Ustawienia graficzne", L"Muzyka OFF", L"Wyjscie" };
+	sf::String str[5] = { L"Start symulacji",L"Ustawienia Symulacji", L"O programie", L"Muzyka OFF", L"Wyjscie" };
 	float y = 50.f;
 	for (int i = 0; i < 5; i++)
 	{	
@@ -33,9 +33,8 @@ void MainMenu::ShowMainMenu()
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		
 		for (int i = 0; i < 5; i++)
-		{
 			button[i].MouseHover(mousePos, button[i].getGlobalBounds());
-		}
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -51,16 +50,21 @@ void MainMenu::ShowMainMenu()
 					if (button[0].contains(mousePos))
 					{
 						window.setVisible(false);
-						window.setActive(false);
-						simulation.SimulationMain(simulationSettings);
+						simulation.SimulationMain(simulationSettings, music);
 						window.setVisible(true);
-						window.setActive(true);
 					}
 					else if (button[1].contains(mousePos))
 					{
 						window.setVisible(false);
-						this->simulationSettings.SimulationSettingsMenu();
+						simulationSettings.SimulationSettingsMenu();
 						window.setVisible(true);
+					}
+					else if (button[2].contains(mousePos))
+					{
+						window.setVisible(false);
+						About about;
+						window.setVisible(true);
+						about.~About();
 					}
 					else if (button[3].contains(mousePos)) this->musicStart();
 					else if (button[4].contains(mousePos)) window.close();

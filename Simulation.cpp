@@ -1,36 +1,39 @@
 #include "Simulation.h"
-#include <iostream>
 Simulation::Simulation()
 {
-
 	TabArray = NULL;
 	settings = NULL;
 	arraySize = 0;
 	cycle = 1;
 
 }
-void Simulation::SimulationMain(SimulationSettings & settings)
+
+void Simulation::SimulationMain(SimulationSettings & settings, sf::Music & music)
 {
 
 	window.create(sf::VideoMode(1280, 850), "Symulacja Liszaja", sf::Style::Titlebar);
 	window.setFramerateLimit(30);
 
-
 	LoadMedia();
+	isMusicPlaying(music, true);
+
 	this->settings = &settings;
 	this->arraySize = this->settings->GetSetting(1);
+
+	char SimulationState = 'P';
+
 	MakeArray();
 	StateFirst();
-	int dlugoscCyklu = this->settings->GetSetting(7);
-	char SimulationState = 'P';
 	sf::Clock zegar;
 	zegar.restart();
+	updateSettings();
+
 	while (window.isOpen())
 	{
 
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 6; i++)
 			button[i].MouseHover(mousePos, button[i].getGlobalBounds());
 
 		while (window.pollEvent(event))
@@ -55,14 +58,26 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 					else if (button[0].contains(mousePos))
 					{
 						SimulationState = 'S';
+						button[0].clicked();
 					}
 					else if (button[1].contains(mousePos))
 					{
 						SimulationState = 'P';
+						button[1].clicked();
 					}
 					else if (button[2].contains(mousePos))
 						Reset();
 					else if (button[3].contains(mousePos))
+					{
+						window.setVisible(false);
+						SimulationState = 'P';
+						settings.SimulationSettingsMenu();
+						window.setVisible(true);
+						updateSettings();
+					}
+					else if (button[4].contains(mousePos))
+						isMusicPlaying(music);
+					else if (button[5].contains(mousePos))
 					{
 						CleanUp();
 						window.close();
@@ -74,33 +89,33 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 			break;
 		if (SimulationState == 'S')
 		{
+			button[0].clicked(true);
+			button[1].clicked(false);
 			if (dlugoscCyklu >= 100 && dlugoscCyklu <= 2000)
 			{
 				sf::Time t = (zegar.getElapsedTime());
 
 				if (t.asMilliseconds() >= (float)dlugoscCyklu)
 				{
-					std::cout << t.asSeconds() << std::endl;
 					zegar.restart();
 					cycle += 1;
 					updateState();
 				}
-
 			}
 		}
-		else if (SimulationState == 'P')
+		else
 		{
-
+			button[0].clicked(false);
+			button[1].clicked(true);
 		}
-
-
-
 		window.clear();
 		window.draw(background);
 		st = "Cykl " + std::to_string(this->cycle);
 		cycleText.setString(st);
+
+		window.draw(background);
 		window.draw(cycleText);
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 6; i++)
 			window.draw(button[i]);
 		drawing();
 		window.display();
@@ -110,6 +125,16 @@ void Simulation::SimulationMain(SimulationSettings & settings)
 void Simulation::StateFirst()
 {
 	TabArray[(int)(this->arraySize / 2) - 1][(int)(this->arraySize / 2) - 1].ChangeState(2);
+}
+
+void Simulation::updateSettings()
+{
+	this->SzUodpornienie = this->settings->GetSetting(2);
+	this->SzUzdrowienie = this->settings->GetSetting(3);
+	this->SzZainfekowanie = this->settings->GetSetting(4);
+	this->czasUodpornienia = this->settings->GetSetting(5);
+	this->czasOdpornosci = this->settings->GetSetting(6);
+	this->dlugoscCyklu = this->settings->GetSetting(7);
 }
 
 int Simulation::randomNumber()
@@ -127,48 +152,61 @@ void Simulation::Reset()
 
 }
 
-void Simulation::DynamicModification(int before, int after)
-{
-}
-
 bool Simulation::InfectWhenClicked(sf::Vector2i mPos)
 {
 	sf::FloatRect rect;
 	rect.top = rect.left = 10;
 	rect.width = rect.height = arraySize * 10;
-
+	rect.height = rect.height - 10;
 	if (rect.contains((float)mPos.x, (float)mPos.y))
 	{
 		TabArray[(int)(mPos.y / 10)][(int)(mPos.x / 10)].ChangeState(2);
 		return true;
 	}
 	return false;
-
 }
 
 void Simulation::LoadMedia()
 {
-
-	bgTexture.loadFromFile("imgs/mainmenu_bg.png");
 	font.loadFromFile("font/Sansita-Italic.ttf");
-	background.setTexture(bgTexture);
-	sf::String str[4] = { L"Start", L"Pause",L"Restart", L"Powrot" };
+	sf::String str[6] = { L"Start", L"Pause",L"Restart", L"Ustawienia", L"Muzyka", L"Powrot" };
 	cycleText.setFont(font);
 	cycleText.setFillColor(sf::Color::White);
-	cycleText.setPosition(1000.f, 50.f);
+	cycleText.setPosition(900.f, 50.f);
 	cycleText.setCharacterSize(60);
-	float y = 250.f;
-	for (int i = 0; i < 4; i++)
+	float y = 150.f;
+	for (int i = 0; i < 6; i++)
 	{
 		button[i].LoadButtonNormal();
 		button[i].setPosition(900.f, y);
 		button[i].LoadMenu(str[i]);
-
-		y += 130.f;
+		y += 100.f;
 	}
+	bgTexture.loadFromFile("imgs/simulation_bg.png");
+	background.setTexture(bgTexture);
 }
 
-
+void Simulation::isMusicPlaying(sf::Music &music, bool first)
+{
+	if (first == true)
+	{
+		if (sf::Music::Status::Playing == music.getStatus())
+			button[4].LoadMenu(L"Music ON");
+		else button[4].LoadMenu(L"Music OFF");
+		return;
+	}
+	if (sf::Music::Status::Playing == music.getStatus())
+	{
+		button[4].LoadMenu(L"Music OFF");
+		music.stop();
+	}
+	else
+	{
+		button[4].LoadMenu(L"Music ON");
+		music.openFromFile("sounds/bg1.ogg");
+		music.play();
+	}
+}
 
 void Simulation::drawing()
 {
@@ -208,12 +246,8 @@ void Simulation::updateState()
 {
 	srand(time(NULL));
 	int n = this->settings->GetSetting(1);
-	int SzUodpornienie = this->settings->GetSetting(2);
-	int SzUzdrowienie = this->settings->GetSetting(3);
-	int SzZainfekowanie = this->settings->GetSetting(4);
-	int czasUodpornienia = this->settings->GetSetting(5);
-	int czasOdpornosci = this->settings->GetSetting(6);
 
+	updateSettings();
 	for (int i = 1; i < n - 1; i++)
 	{
 		for (int j = 1; j < n - 1; j++)
@@ -305,6 +339,7 @@ void Simulation::updateState()
 
 void Simulation::MakeArray()
 {
+
 	int n = this->arraySize;
 	this->TabArray = new Point*[n];
 	for (int i = 0; i < n; i++)
@@ -319,6 +354,5 @@ void Simulation::CleanUp()
 		for (int i = 0; i < n; i++)
 			delete[] TabArray[i];
 		delete[] TabArray;
-
 	}
 }

@@ -35,6 +35,7 @@ void SimulationSettings::SimulationSettingsMenu()
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
+		button[7].MouseHover(mousePos, button[7].getGlobalBounds());
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -156,8 +157,8 @@ void SimulationSettings::LoadMedia()
 	TextRange[1].setString(L"[0-100]");
 	TextRange[2].setString(L"[0-100]");
 	TextRange[3].setString(L"[0-100]");
-	TextRange[4].setString(L"[0-100]");
-	TextRange[5].setString(L"[0-100]");
+	TextRange[4].setString(L"[1-100]");
+	TextRange[5].setString(L"[1-100]");
 	TextRange[6].setString(L"[100-2000]");
 	float y = 50.f;
 	for (int i = 1; i < 8; i++)

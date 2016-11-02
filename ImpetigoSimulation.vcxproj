@@ -120,7 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="GraphicSettings.cpp" />
+    <ClCompile Include="About.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Point.cpp" />
@@ -129,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
-    <ClInclude Include="GraphicSettings.h" />
+    <ClInclude Include="About.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Simulation.h" />

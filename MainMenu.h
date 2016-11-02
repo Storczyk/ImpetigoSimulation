@@ -3,7 +3,7 @@
 #include "Button.h"
 #include "Simulation.h"
 #include "SimulationSettings.h"
-#include "GraphicSettings.h"
+#include "About.h"
 #include <SFML\Audio.hpp>
 class MainMenu
 {
@@ -18,9 +18,6 @@ class MainMenu
 	bool isMusicOn;
 	Simulation simulation;
 	SimulationSettings simulationSettings;
-	GraphicSettings graphicSettings;
-
-
 public: 
 	MainMenu();
 	~MainMenu() {};
