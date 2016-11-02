@@ -5,7 +5,6 @@ Simulation::Simulation()
 	settings = NULL;
 	arraySize = 0;
 	cycle = 1;
-
 }
 
 void Simulation::SimulationMain(SimulationSettings & settings, sf::Music & music)
@@ -30,7 +29,6 @@ void Simulation::SimulationMain(SimulationSettings & settings, sf::Music & music
 
 	while (window.isOpen())
 	{
-
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		sf::Event event;
 		for (int i = 0; i < 6; i++)
@@ -110,6 +108,7 @@ void Simulation::SimulationMain(SimulationSettings & settings, sf::Music & music
 		}
 		window.clear();
 		window.draw(background);
+
 		st = "Cykl " + std::to_string(this->cycle);
 		cycleText.setString(st);
 
@@ -339,7 +338,6 @@ void Simulation::updateState()
 
 void Simulation::MakeArray()
 {
-
 	int n = this->arraySize;
 	this->TabArray = new Point*[n];
 	for (int i = 0; i < n; i++)

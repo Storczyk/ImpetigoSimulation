@@ -16,7 +16,7 @@ int SimulationSettings::GetSetting(int nr)
 {
 	switch (nr)
 	{
-	case 1: return this->ArraySize; //zablokowane
+	case 1: return this->ArraySize; 
 	case 2: return this->ImmuneChance;
 	case 3: return this->HealChance;
 	case 4: return this->InfectionChance;
@@ -30,7 +30,7 @@ void SimulationSettings::SimulationSettingsMenu()
 {
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(1024, 768), "Ustawienia Symulacji", sf::Style::Titlebar);
-	window.setFramerateLimit(10);
+	window.setFramerateLimit(30);
 	while (window.isOpen())
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -48,7 +48,7 @@ void SimulationSettings::SimulationSettingsMenu()
 				{
 					if (button[7].contains(mousePos))
 						window.close();
-					for (int i = 1; i < 7; i++)
+					for (int i = 1; i < 7; i++) 
 					{
 						sf::FloatRect bValPos = buttonValue[i].getGlobalBounds();
 						if (this->contains(mousePos, bValPos))

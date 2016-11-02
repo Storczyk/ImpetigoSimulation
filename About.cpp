@@ -7,7 +7,7 @@ About::About()
 	background.setTexture(bgTexture);
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(500, 500), "O programie", sf::Style::Titlebar);
-	window.setFramerateLimit(10);
+	window.setFramerateLimit(30);
 	while (window.isOpen())
 	{
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
