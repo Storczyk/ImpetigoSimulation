@@ -1,6 +1,4 @@
-﻿  Simulation.cpp
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(159): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(218): warning C4101: 'dlStanu': unreferenced local variable
-d:\vscommunity\symulacjaliszaja\impetigosimulation\simulation.cpp(247): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿     Creating library D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.lib and object D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.exp
+sfml-main-d.lib(MainWin32.cpp.obj) : warning LNK4204: 'D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\vc140.pdb' is missing debugging information for referencing module; linking object as if no debug info
   ImpetigoSimulation.vcxproj -> D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.exe
   ImpetigoSimulation.vcxproj -> D:\VSCommunity\SymulacjaLiszaja\ImpetigoSimulation\Debug\ImpetigoSimulation.pdb (Partial PDB)
